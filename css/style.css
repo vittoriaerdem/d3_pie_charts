@@ -1,0 +1,52 @@
+body {
+  text-align: center;
+  display: block;
+  align-items: center;
+  justify-content: center;
+}
+
+.arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}
+
+.arc2 text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc2 path {
+  stroke: #fff;
+}
+
+
+h2 {
+  font: 40px sans-serif;
+  font-weight: bold;
+  background-color: #D8D8D8;
+  padding: 20px;
+  margin-bottom: 0;
+  width: 100%
+}
+
+.inside {
+  font: 20px sans-serif;
+  font-weight: bold;
+  fill: white;
+}
+
+.label {
+  font: 20px sans-serif;
+  font-weight: bold;
+}
+
+.title {
+  width: 750px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
