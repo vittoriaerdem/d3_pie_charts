@@ -68,6 +68,25 @@
               .attr("y", center[1])
               .text(d.data.units);
           });
+
+    var legends = svg.append("g").attr("transform", "translate(500,100)")
+      .selectAll("legends").data(data);
+
+    var legend = legends.enter()
+                        .append("g")
+                        .classed("legends", true)
+                        .attr("transform", function (d,i){return "translate(0," + (i+1)*30 + ")";});
+
+                  legend.append("rect")
+                      .attr("width", 20)
+                      .attr("height", 20)
+                      .attr("fill", function(d){return colors(d.data.units);});
+
+                legend.append("text")
+                      .classed("label", true)
+                      .text(function(d){return d.data.fruit;})
+                      .attr("x", 30)
+                      .attr("y", 20); 
   </script>
 
   <div class="title">
@@ -119,6 +138,25 @@
               .attr("y", center[2])
               .text(d.data.price)
           })
+
+    var legends = svg.append("g").attr("transform", "translate(500,100)")
+      .selectAll("legends").data(data);
+
+    var legend = legends.enter()
+                        .append("g")
+                        .classed("legends", true)
+                        .attr("transform", function (d,i){return "translate(0," + (i+1)*30 + ")";});
+
+                  legend.append("rect")
+                      .attr("width", 20)
+                      .attr("height", 20)
+                      .attr("fill", function(d){return colors(d.data.price);});
+
+                legend.append("text")
+                      .classed("label", true)
+                      .text(function(d){return d.data.fruit;})
+                      .attr("x", 30)
+                      .attr("y", 20); 
 
   </script>
 
