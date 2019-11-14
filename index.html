@@ -33,24 +33,25 @@
                       {fruit:"Pineapple" , units:22}, {fruit:"Pear" , units:12}, 
                       {fruit:"Orange" , units:20}, {fruit:"Cherry" , units:8},]
 
-
-      //add data 
+      //compute the position of each group on the pie
       var data = d3.pie().sort(null).value(function(d){return d.units;})(byUnits); 
       console.log(data);
 
+      //the chart's inner spacing size, overall size, pad spacing & pad styling
       var arc = d3.arc()
                   .innerRadius(100)
                   .outerRadius(200)
                   .padAngle(.05)
                   .padRadius(100);
 
+      //the chart's inner spacing size, overall size, pad spacing & pad styling on mouseover
       var arcOver = d3.arc()
-                  .innerRadius(80) 
-                  .outerRadius(205)
+                  .innerRadius(100) 
+                  .outerRadius(200)
                   .padAngle(.05)
                   .padRadius(100);
 
-    var sections = svg.append("g")
+      var sections = svg.append("g")
                       .attr("transform", "translate(250, 250)")
                       .selectAll("path")
                       .data(data);
@@ -60,35 +61,37 @@
                   .attr("d", arc)
                   .attr("fill", function(d){return colors(d.data.units);});
 
-    var content = d3.select("g").selectAll("text").data(data);
-          content.enter().append("text").classed("inside", true).each(function(d){
-            
-            var center = arc.centroid(d);
-            
-            d3.select(this)
-              .attr("x", center[0])
-              .attr("y", center[1])
-              .text(d.data.units);
-          });
+      //label each pie piece with fruit sold by unit
+      var content = d3.select("g").selectAll("text").data(data);
+            content.enter().append("text").classed("inside", true).each(function(d){
+              
+              var center = arc.centroid(d);
+              
+              d3.select(this)
+                .attr("x", center[0])
+                .attr("y", center[1])
+                .text(d.data.units);
+            });
 
-    var legends = svg.append("g").attr("transform", "translate(500,100)")
-      .selectAll("legends").data(data);
+      //create corrosponding legend to chart data 
+      var legends = svg.append("g").attr("transform", "translate(500,100)")
+        .selectAll("legends").data(data);
 
-    var legend = legends.enter()
-                        .append("g")
-                        .classed("legends", true)
-                        .attr("transform", function (d,i){return "translate(0," + (i+1)*30 + ")";});
+      var legend = legends.enter()
+                          .append("g")
+                          .classed("legends", true)
+                          .attr("transform", function (d,i){return "translate(0," + (i+1)*30 + ")";});
 
-                  legend.append("rect")
-                      .attr("width", 20)
-                      .attr("height", 20)
-                      .attr("fill", function(d){return colors(d.data.units);});
+                    legend.append("rect")
+                        .attr("width", 20)
+                        .attr("height", 20)
+                        .attr("fill", function(d){return colors(d.data.units);});
 
-                legend.append("text")
-                      .classed("label", true)
-                      .text(function(d){return d.data.fruit;})
-                      .attr("x", 30)
-                      .attr("y", 20); 
+                  legend.append("text")
+                        .classed("label", true)
+                        .text(function(d){return d.data.fruit;})
+                        .attr("x", 30)
+                        .attr("y", 20); 
   </script>
 
   <div class="title">
@@ -115,15 +118,24 @@
                       {fruit:"Pineapple" , price:24}, {fruit:"Pear" , price:30}, 
                       {fruit:"Orange" , price:17}, {fruit:"Cherry" , price:44},]
 
+      //compute the position of each group on the pie
       var data = d3.pie().value(function(d){return d.price;})(byPrice); 
 
+      //the chart's inner spacing size, overall size, pad spacing & pad styling
       var arc = d3.arc()
                   .innerRadius(100)
                   .outerRadius(200)
                   .padAngle(.05)
                   .padRadius(100);
 
-    var sections = svg.append("g")
+      //the chart's inner spacing size, overall size, pad spacing & pad styling on mouseover
+      var arcOver = d3.arc()
+                  .innerRadius(100) 
+                  .outerRadius(200)
+                  .padAngle(.05)
+                  .padRadius(100);
+
+      var sections = svg.append("g")
                       .attr("transform", "translate(250, 250)")
                       .selectAll("path")
                       .data(data);
@@ -133,39 +145,38 @@
                   .attr("d", arc)
                   .attr("fill", function(d){return colors(d.data.price);});
 
-
-    var content = d3.select("g").selectAll("word").data(data);
-          content.enter().append("text").classed("inside", true).each(function(d){
+      //label each pie piece with fruit sold by price
+      var content = d3.select("g").selectAll("text").data(data);
+            content.enter().append("text").classed("inside", true).each(function(d){
     
             var center = arc.centroid(d);
             
-            d3.select(this)
+            d3.select("")
               .attr("x", center[0])
               .attr("y", center[2])
               .text(d.data.price)
           })
+    
+      //create corrosponding legend to chart data 
+      var legends = svg.append("g").attr("transform", "translate(500,100)")
+        .selectAll("legends").data(data);
 
-    var legends = svg.append("g").attr("transform", "translate(500,100)")
-      .selectAll("legends").data(data);
+      var legend = legends.enter()
+                          .append("g")
+                          .classed("legends", true)
+                          .attr("transform", function (d,i){return "translate(0," + (i+1)*30 + ")";});
 
-    var legend = legends.enter()
-                        .append("g")
-                        .classed("legends", true)
-                        .attr("transform", function (d,i){return "translate(0," + (i+1)*30 + ")";});
+                    legend.append("rect")
+                        .attr("width", 20)
+                        .attr("height", 20)
+                        .attr("fill", function(d){return colors(d.data.price);});
 
-                  legend.append("rect")
-                      .attr("width", 20)
-                      .attr("height", 20)
-                      .attr("fill", function(d){return colors(d.data.price);});
-
-                legend.append("text")
-                      .classed("label", true)
-                      .text(function(d){return d.data.fruit;})
-                      .attr("x", 30)
-                      .attr("y", 20); 
-
+                  legend.append("text")
+                        .classed("label", true)
+                        .text(function(d){return d.data.fruit;})
+                        .attr("x", 30)
+                        .attr("y", 20); 
   </script>
-
 
 </body>
 </html>
