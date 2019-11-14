@@ -14,8 +14,10 @@
   </div>
 
   <script>
+      // set the dimensions and margins of the graph
       var width = 750, height=500;
 
+      //set the color scale
       var colors = d3.scaleSequential(d3.interpolateMagma)
             .domain([0,60]);
 
@@ -26,7 +28,7 @@
         .attr("height", height)
         .style("background", "#D8D8D8")
 
-      //data
+      //create fruit data by units
       var byUnits = [ {fruit:"Banana" , units:25}, {fruit:"Apple" , units:35}, 
                       {fruit:"Pineapple" , units:22}, {fruit:"Pear" , units:12}, 
                       {fruit:"Orange" , units:20}, {fruit:"Cherry" , units:8},]
@@ -94,17 +96,21 @@
   </div>
 
   <script>
+    // set the dimensions and margins of the graph
       var width = 750, height=500;
 
+      //set the color scale
       var colors = d3.scaleSequential(d3.interpolateWarm)
         .domain([0,40]);
 
+      //append the svg to the body
       var svg = d3.select("body")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
         .style("background", "#D8D8D8")
 
+      //create fruit data by price
       var byPrice = [ {fruit:"Banana" , price:10}, {fruit:"Apple" , price:5}, 
                       {fruit:"Pineapple" , price:24}, {fruit:"Pear" , price:30}, 
                       {fruit:"Orange" , price:17}, {fruit:"Cherry" , price:44},]
