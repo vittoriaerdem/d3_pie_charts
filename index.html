@@ -57,6 +57,17 @@
                   .append("path")
                   .attr("d", arc)
                   .attr("fill", function(d){return colors(d.data.units);});
+
+    var content = d3.select("g").selectAll("text").data(data);
+          content.enter().append("text").classed("inside", true).each(function(d){
+            
+            var center = arc.centroid(d);
+            
+            d3.select(this)
+              .attr("x", center[0])
+              .attr("y", center[1])
+              .text(d.data.units);
+          });
   </script>
 
   <div class="title">
@@ -97,7 +108,20 @@
                   .attr("d", arc)
                   .attr("fill", function(d){return colors(d.data.price);});
 
+
+    var content = d3.select("g").selectAll("word").data(data);
+          content.enter().append("text").classed("inside", true).each(function(d){
+    
+            var center = arc.centroid(d);
+            
+            d3.select(this)
+              .attr("x", center[0])
+              .attr("y", center[2])
+              .text(d.data.price)
+          })
+
   </script>
+
 
 </body>
 </html>
