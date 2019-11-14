@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="d3.v4.js"></script>
+  <title>Pie Chart</title>
+</head>
+<body>
+
+  <div class="title">
+    <h2>Fruit Sold By Unit</h2>
+  </div>
+
+
+    <script>
+        var width = 750, height=500;
+
+        var colors = d3.scaleSequential(d3.interpolateMagma)
+              .domain([0,60]);
+
+        var svg = d3.select("body")
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height)
+          .style("background", "#D8D8D8")
+
+        var byUnits = [ {fruit:"Banana" , units:25}, {fruit:"Apple" , units:35}, 
+                        {fruit:"Pineapple" , units:22}, {fruit:"Pear" , units:12}, 
+                        {fruit:"Orange" , units:20}, {fruit:"Cherry" , units:8},]
+
+        var data = d3.pie().sort(null).value(function(d){return d.units;})(byUnits); 
+        console.log(data);
+
+        var arc = d3.arc()
+                    .innerRadius(100)
+                    .outerRadius(200)
+                    .padAngle(.05)
+                    .padRadius(100);
+
+        var arcOver = d3.arc()
+                    .innerRadius(80) 
+                    .outerRadius(205)
+                    .padAngle(.05)
+                    .padRadius(100);
+
+      var sections = svg.append("g")
+                        .attr("transform", "translate(250, 250)")
+                        .selectAll("path")
+                        .data(data);
+
+            sections.enter()
+                    .append("path")
+                    .attr("d", arc)
+                    .attr("fill", function(d){return colors(d.data.units);});
+
+
+        var content = d3.select("g").selectAll("text").data(data);
+          content.enter().append("text").classed("inside", true).each(function(d){
+            
+            var center = arc.centroid(d);
+            
+            d3.select(this)
+              .attr("x", center[0])
+              .attr("y", center[1])
+              .text(d.data.units);
+          });
+
+          var legends = svg.append("g").attr("transform", "translate(500,100)")
+            .selectAll("legends").data(data);
+
+          var legend = legends.enter()
+                              .append("g")
+                              .classed("legends", true)
+                              .attr("transform", function (d,i){return "translate(0," + (i+1)*30 + ")";});
+ 
+                       legend.append("rect")
+                            .attr("width", 20)
+                            .attr("height", 20)
+                            .attr("fill", function(d){return colors(d.data.units);});
+
+                      legend.append("text")
+                            .classed("label", true)
+                            .text(function(d){return d.data.fruit;})
+                            .attr("x", 30)
+                            .attr("y", 20); 
+
+    </script> 
+
+<div class="title">
+  <h2>Fruit Sold By Price</h2>
+  </div>
+  
+    <script>
+      var width = 750, height=500;
+
+      var colors = d3.scaleSequential(d3.interpolateWarm)
+        .domain([0,40]);
+
+      var svg = d3.select("body")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .style("background", "#D8D8D8")
+
+      var byPrice = [ {fruit:"Banana" , price:10}, {fruit:"Apple" , price:5}, 
+                      {fruit:"Pineapple" , price:24}, {fruit:"Pear" , price:30}, 
+                      {fruit:"Orange" , price:17}, {fruit:"Cherry" , price:44},]
+
+      var data = d3.pie().value(function(d){return d.price;})(byPrice); 
+
+      var arc = d3.arc()
+                  .innerRadius(100)
+                  .outerRadius(200)
+                  .padAngle(.05)
+                  .padRadius(100);
+
+    var sections = svg.append("g")
+                      .attr("transform", "translate(250, 250)")
+                      .selectAll("path")
+                      .data(data);
+
+          sections.enter()
+                  .append("path")
+                  .attr("d", arc)
+                  .attr("fill", function(d){return colors(d.data.price);});
+    
+
+        var content = d3.select("g").selectAll("word").data(data);
+          content.enter().append("text").classed("inside", true).each(function(d){
+    
+            var center = arc.centroid(d);
+            
+            d3.select(this)
+              .attr("x", center[0])
+              .attr("y", center[2])
+              .text(d.data.price)
+          })
+
+          var legends = svg.append("g").attr("transform", "translate(500,100)")
+            .selectAll("legends").data(data);
+
+          var legend = legends.enter()
+                              .append("g")
+                              .classed("legends", true)
+                              .attr("transform", function (d,i){return "translate(0," + (i+1)*30 + ")";});
+ 
+                       legend.append("rect")
+                            .attr("width", 20)
+                            .attr("height", 20)
+                            .attr("fill", function(d){return colors(d.data.price);});
+
+                      legend.append("text")
+                            .classed("label", true)
+                            .text(function(d){return d.data.fruit;})
+                            .attr("x", 30)
+                            .attr("y", 20); 
+  </script> 
+
+</body>
+</html>
